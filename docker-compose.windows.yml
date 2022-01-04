@@ -17,6 +17,8 @@ services:
       - AP_USE_GAZEBO=true
       - AP_HOME=51.4233628,-2.671671,100.0,0
       - AP_SIM_HOST=simhost
+    ports:
+      - "5762:5762"
   
   mavros:
     image: uobflightlabstarling/starling-mavros:${STARLING_RELEASE:-latest}
@@ -30,11 +32,15 @@ services:
       - "MAVROS_PLUGINLISTS_PATH=/mavros_pluginlists_ap.yaml"
     ports:
       - "5761:5761"
+  
+  # splitter:
+  #   image: uobflightlabstarling/mavp2p
+  #   command: tcpc:mavros:5761 tcps:0.0.0.0:5760 tcpc
 
-  rosbridge-suite:
-    image: uobflightlabstarling/rosbridge-suite:${STARLING_RELEASE:-latest}
-    ports:
-      - "9090:9090"
+  # rosbridge-suite:
+  #   image: uobflightlabstarling/rosbridge-suite:${STARLING_RELEASE:-latest}
+  #   ports:
+  #     - "9090:9090"
 
   # Uncomment for the UI Example 
   # ui-example:
